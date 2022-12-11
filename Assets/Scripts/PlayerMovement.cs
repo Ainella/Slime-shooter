@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     Transform playerGraphics;
 
+    private bool doubleJump;
+
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -21,14 +23,21 @@ public class PlayerMovement : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         playerGraphics = transform.Find("Graphics");
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (IsGrounded() && !Input.GetButton("Jump"))
+        {
+            doubleJump = false;
+        }
+
+        if (Input.GetButtonDown("Jump") && (IsGrounded() || doubleJump))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+
+            doubleJump = !doubleJump;
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
         Flip();
@@ -52,6 +61,9 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = playerGraphics.localScale;
             localScale.x *= -1f;
             playerGraphics.localScale = localScale;
+
+          
+
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveTrail : MonoBehaviour
 {
 
-    public int moveSpeed = 100;
+    public int moveSpeed = 200;
 
     void Update()
     {

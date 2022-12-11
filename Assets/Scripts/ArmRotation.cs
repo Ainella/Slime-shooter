@@ -7,9 +7,18 @@ public class ArmRotation : MonoBehaviour
 {
 
     public int rotationOffset = 90;
+    private SpriteRenderer spriteRenderer;
+
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+    }
 
     void Update()
     {
+        
+
         if ( !PauseMenu.GameIsPaused )
         {
 
@@ -19,6 +28,18 @@ public class ArmRotation : MonoBehaviour
         float rotZ = Mathf.Atan2 (difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler (0f, 0f, rotZ + rotationOffset);
 
+        if(transform.eulerAngles.z < 89 || transform.eulerAngles.z > 275)
+        {
+            spriteRenderer.flipY = false;
+        }
+        else
+        {
+            spriteRenderer.flipY = true;
+        }
+
         }
     }
+
+    
+    
 }
