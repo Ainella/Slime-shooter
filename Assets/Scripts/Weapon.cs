@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
     public float Damage = 10;
     public LayerMask whatToHit;
 
-    public Transform BulletTrailPrefab;
+    public GameObject BulletTrailPrefab;
 
     public float effectSpawnRate = 10;
     float timeToSpawnEffect = 0;
