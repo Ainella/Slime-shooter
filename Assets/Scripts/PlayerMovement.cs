@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-
         Flip();
     }
 
@@ -61,9 +60,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = playerGraphics.localScale;
             localScale.x *= -1f;
             playerGraphics.localScale = localScale;
-
-          
-
         }
     }
 }
