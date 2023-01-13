@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
 
+    public GameObject GameOverMenu;
+
     [SerializeField]
-    private int lives = 3;
+    public int lives = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +28,12 @@ public class Player : MonoBehaviour
         {
             lives--;
         }
+        
         else
         {
             EnemyDeath();
+            Time.timeScale = 0f;
+            GameOverMenu.SetActive(true);
         }
     }
 
