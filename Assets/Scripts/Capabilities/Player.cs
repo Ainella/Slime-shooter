@@ -7,13 +7,17 @@ public class Player : MonoBehaviour
 {
 
     public GameObject GameOverMenu;
-
     [SerializeField]
-    public int lives = 3;
+    private int maxLives = 5;
+    [SerializeField]
+    public int lives;
+    [SerializeField]
+    public HealthBar bar;
     // Start is called before the first frame update
     void Start()
     {
-        
+        lives = maxLives;
+        bar.SetMaxHealth(maxLives);
     }
 
     // Update is called once per frame
@@ -24,9 +28,10 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (lives > 0)
+        if (lives > 1)
         {
             lives--;
+            bar.SetHealth(lives);
         }
         
         else

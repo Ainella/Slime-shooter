@@ -7,12 +7,12 @@ public class FinishMenuScript : MonoBehaviour
 {
     public void RestartGame()
     {
-        SceneManager.LoadScene("Level 1(N)");
+        SceneManager.LoadScene(1);
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("mainmenu 1");
+        SceneManager.LoadScene(0);
     }
 
 

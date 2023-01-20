@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public SpawnManager spawnManager;
     [SerializeField]
     public Player pl;
+    [SerializeField]
+    GameObject explosion;
 
     void Update()
     {
@@ -19,8 +21,10 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        
         if (other.gameObject == player)
         {
+            Instantiate(explosion, transform.position, Quaternion.identity);
             pl.Damage();
             spawnManager.EnemyDestroyed();
             Destroy(gameObject);
@@ -28,6 +32,7 @@ public class Enemy : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bullet"))
         {
+            Instantiate(explosion, transform.position, Quaternion.identity);
             spawnManager.EnemyDestroyed();
             Destroy(other.gameObject);
             Destroy(gameObject);

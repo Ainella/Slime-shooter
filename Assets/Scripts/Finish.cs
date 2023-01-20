@@ -7,6 +7,8 @@ public class Finish : MonoBehaviour
 {
     [SerializeField]
     GameObject player;
+    [SerializeField]
+    private SpawnManager spawnManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,6 +20,18 @@ public class Finish : MonoBehaviour
 
     private void CompleteLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (spawnManager.getTotalEnemies() <= 0)
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                SceneManager.LoadScene(2);
+            }
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                SceneManager.LoadScene(3);
+            }
+
+        }
+
     }
 }

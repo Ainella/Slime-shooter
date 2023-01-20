@@ -15,7 +15,7 @@ public class GameOverMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameIsPaused = false;
-        SceneManager.LoadScene("Level 1(N)");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //Loads the main menu
@@ -23,7 +23,7 @@ public class GameOverMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameIsPaused = true;
-        SceneManager.LoadScene("mainmenu");
+        SceneManager.LoadScene(0);
     }
 
     //Exist the game

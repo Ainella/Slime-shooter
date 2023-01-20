@@ -15,6 +15,8 @@ public class Weapon : MonoBehaviour
     float timeToSpawnEffect = 0;
     float timeToFire = 0;
     Transform firePoint;
+    [SerializeField]
+    AudioSource shooting;
 
     // Start is called before the first frame update
     void Awake()
@@ -30,6 +32,7 @@ public class Weapon : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 Shoot();
+                shooting.Play();
             }
         }
         else
@@ -37,6 +40,7 @@ public class Weapon : MonoBehaviour
               if(Input.GetButton ("Fire1") && Time.time > timeToFire)
               {
                 timeToFire = Time.time + 1/fireRate;
+                shooting.Play();
                 Shoot();
               }  
         }

@@ -11,7 +11,9 @@ public class SpawnManager : MonoBehaviour
     private GameObject enemy;
     private Vector3 position;
     [SerializeField]
-    private int _totalEnemies = 200;
+    private int _totalEnemies = 50;
+    [SerializeField]
+    private int additionalEnemies = 0;
     [SerializeField]
     private int _maxEnemies = 5;
     [SerializeField]
@@ -21,7 +23,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartSpawning();
+        SpawnEnemyRoutine();
     }
 
     // Update is called once per frame
@@ -34,20 +36,35 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    void StartSpawning()
+    private void SpawnEnemyRoutine()
     {
-        StartCoroutine(SpawnEnemyRoutine());
-    }
-
-    private IEnumerator SpawnEnemyRoutine()
-    {
-        while (_totalEnemies > 0 && _currentEnemies != _maxEnemies)
+        while (_totalEnemies > 0 && _currentEnemies <= _maxEnemies)
         {
-            _totalEnemies--;
-            _currentEnemies++;
-            position = new Vector3(Random.Range(player.position.x + 30f, player.position.x + 60f), player.position.y, 0);
-            Instantiate(enemy, position, Quaternion.identity);
-            yield return new WaitForSeconds(2f);
+            if (player.position.x < 0)
+            {
+                _totalEnemies--;
+                _currentEnemies++;
+                position = new Vector3(Random.Range(player.position.x + 60f, player.position.x + 100f), Random.Range(3, 7), 0);
+                Instantiate(enemy, position, Quaternion.identity);
+            }
+            else if(player.position.x > 300)
+            {
+                _totalEnemies--;
+                _currentEnemies++;
+                position = new Vector3(Random.Range(player.position.x - 30f, player.position.x - 60f), Random.Range(3, 7), 0);
+                Instantiate(enemy, position, Quaternion.identity);
+            }
+            else
+            {
+                _totalEnemies--;
+                _currentEnemies++;
+                position = new Vector3(Random.Range(player.position.x + 60f, player.position.x + 100f), Random.Range(3, 7), 0);
+                Instantiate(enemy, position, Quaternion.identity);
+                _totalEnemies--;
+                _currentEnemies++;
+                position = new Vector3(Random.Range(player.position.x - 30f, player.position.x - 60f), Random.Range(3, 7), 0);
+                Instantiate(enemy, position, Quaternion.identity);
+            }
         }
     }
 
@@ -56,21 +73,25 @@ public class SpawnManager : MonoBehaviour
         _currentEnemies--;
         if (_currentEnemies == _maxEnemies - 1)
         {
-            StartSpawning();
+            SpawnEnemyRoutine();
         }
     }
 
     void NextCheckpoint()
     {
-        if (_totalEnemies == 0)
+        if (_totalEnemies <= 0)
         {
-            _totalEnemies += 300;
-            StartSpawning();
+            _totalEnemies += additionalEnemies;
+            SpawnEnemyRoutine();
         }
         else
         {
-            _totalEnemies += 300;
+            _totalEnemies += additionalEnemies;
         }
+    }
 
+    public int getTotalEnemies()
+    {
+        return _totalEnemies;
     }
 }

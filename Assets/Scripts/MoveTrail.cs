@@ -13,4 +13,11 @@ public class MoveTrail : MonoBehaviour
         transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
         Destroy (gameObject, 1);
     }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("EnemyModel"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
