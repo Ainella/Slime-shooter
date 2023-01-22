@@ -59,15 +59,16 @@ public class Move : MonoBehaviour
 
         animator.SetFloat("Speed", Convert.ToInt32(onGround) * Mathf.Abs(velocity.x));
 
-
+ 
     }
     private void Rotate()
     {
-        if (input.RetrieveMoveInput() > 0)
+        int _input = input.RetrieveMoveInput();
+        if (_input > 0)
         {
             model.transform.eulerAngles = new Vector3(0, 180f, 0);
         }
-        else if (input.RetrieveMoveInput() < 0)
+        else if (_input < 0)
         {
             model.transform.eulerAngles = new Vector3(0, 0, 0);
         }
